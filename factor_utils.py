@@ -24,36 +24,6 @@ def trialDivision(intToFactor):
 
     return factorList
 
-def fermatLittle(a, n, p): # calculates (a^n) % p in O(log y)
-    res = 1
-    a = a % p 
-
-    while n > 0:
-        if n % 2:
-            res = (res * a) % p
-            n = n - 1
-        
-        else:
-            a = (a ** 2) % p
-            n = n // 2
-             
-    return res % p
-
-def isPrime(n, k): # If n is prime, will always return true, if n is composite, will return false or true, as k increases, likelihood increases
-    if n == 1 or n == 4: # trivial
-        return False
-    elif n == 2 or n == 3: # trivial
-        return True
-
-    else:
-        for i in range(k):
-            a = random.randint(2, n-2) # Choose random a from {2, 3, ..., n-2}
-             
-            if fermatLittle(a, n - 1, n) != 1:
-                return False
-                 
-    return True
-
 def g(val, intToFactor, polynomial): # Polynomial in format of [ (coefficient_1, degree_1), (c2,d2), ...  ]
     result = 0 
     for term in polynomial: #evaluate polynomial(x)
@@ -84,20 +54,49 @@ def defaultPoly(c):
 
 def findAllPollard(intToFactor, it=-1): 
     factors = []
-    isP= isPrime(intToFactor, 3) # check if prime
+    isP= isPrime(intToFactor) # check if prime
 
     while not isP: # if n is prime, dont pollard rho
         factor = pollardRho(intToFactor, polynomial= defaultPoly(it)) # find a factor 
         
-        if isPrime(factor, 3):
+        if isPrime(factor):
             factors.append(factor) # append factor to list
             intToFactor //= factor # divide n by factor
         
         else: #found non-prime factor, change polynomial c 
             it += 1 
 
-        isP= isPrime(intToFactor, 3)
+        isP= isPrime(intToFactor)
 
     factors.append(intToFactor) # append final n
 
     return factors
+
+def isPrime(n, k= 40):
+    if n == 2 or n == 3:       ## trivial
+        return True  
+
+    if n % 2 == 0 or n == 1:   ## trivial
+        return False
+
+    r, s = 0, n - 1  ## 
+    while s % 2 == 0:
+        r += 1
+        s //= 2
+
+    for _ in range(k):
+        a = random.randrange(2, n - 1)
+        x = pow(a, s, n)
+        
+        if x == 1 or x == n - 1:
+            continue
+        
+        for _ in range(r - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                break
+        else:
+            return False
+    
+    return True
+
