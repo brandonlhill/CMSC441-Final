@@ -12,7 +12,7 @@ from memory_profiler import profile
 
 # globals
 DATAFILE = "RSA-Digits.dat"
-DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits"]
+DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits", "65-bits", "70-bits", "75-bits", "80-bits", "85-bits", "90-bits", "95-bits", "100-bits"]
 
 class Num_Utils:
     def randomIntGen(self, numDigits):
