@@ -45,58 +45,16 @@ def pollardRho(intToFactor, x= 2, y= 2, polynomial= [[1, 2], [1, 0]]): # Set def
         d = math.gcd(abs(x - y), intToFactor) 
 
     if d == intToFactor: # no factor was found
-        return 1
+        return pollardRho(intToFactor, polynomial + [1,0])
     else:
         return d
 
 def defaultPoly(c):
     return [[1, 2], [c, 0]] # change the constant in x^2 + c
 
-def findAllPollard(intToFactor, it=-1): 
-    factors = []
-    isP= isPrime(intToFactor) # check if prime
-
-    while not isP: # if n is prime, dont pollard rho
-        factor = pollardRho(intToFactor, polynomial= defaultPoly(it)) # find a factor 
-        
-        if isPrime(factor):
-            factors.append(factor) # append factor to list
-            intToFactor //= factor # divide n by factor
-        
-        else: #found non-prime factor, change polynomial c 
-            it += 1 
-
-        isP= isPrime(intToFactor)
-
-    factors.append(intToFactor) # append final n
-
-    return factors
-
-def isPrime(n, k= 40):
-    if n == 2 or n == 3:       ## trivial
-        return True  
-
-    if n % 2 == 0 or n == 1:   ## trivial
-        return False
-
-    r, s = 0, n - 1  ## 
-    while s % 2 == 0:
-        r += 1
-        s //= 2
-
-    for _ in range(k):
-        a = random.randrange(2, n - 1)
-        x = pow(a, s, n)
-        
-        if x == 1 or x == n - 1:
-            continue
-        
-        for _ in range(r - 1):
-            x = pow(x, 2, n)
-            if x == n - 1:
-                break
-        else:
-            return False
+def findAllPollard(intToFactor): 
+    factors = [pollardRho(intToFactor)]
+    intToFactor //= factors[0]
+    factors.append(intToFactor)
     
-    return True
-
+    return factors
