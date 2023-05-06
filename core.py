@@ -4,9 +4,15 @@ import sys
 import time
 import datetime
 import psutil
+import configparser
+import json
 
 import factor_utils
 from memory_profiler import profile
+
+# globals
+DATAFILE = "RSA-Digits.dat"
+DATAFILESECTIONS = ["8_bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits"]
 
 class Num_Utils:
     def randomIntGen(self, numDigits):
@@ -24,19 +30,23 @@ class Num_Utils:
 
 class Driver(Num_Utils):
     spaceUsage = []
-    integerList = []
+    primeList = []
     digits = 0
     report = None
+    datafile = None
     
     def __init__(self, resultsFile, integerFile=None):
         if resultsFile == None or resultsFile == '':
             raise Exception("[ERROR] No File Given.")
+        
+        self.datafile = configparser.ConfigParser()
+        self.datafile.read(DATAFILE)
         self.resultsFile = open(resultsFile, "w")
     
     def generateTestData(self, digits, iterations):
-        self.integerList = self.getInts(digits, iterations)
+        self.primeList = self.getInts(digits, iterations)
         self.digits = digits
-    
+
     def report(self, msg):
         self.resultsFile.write(msg)
         print(msg, end="")
@@ -48,19 +58,17 @@ class Driver(Num_Utils):
             self.resultsFile = open(fn + "_" +str(datetime.datetime.now()), "w")
         else:
             self.resultsFile = open(filename, "w")
-        
     
-    def test(self, algorithm):
+    def test(self, algorithm, bits):
         # clear spaceUsage
         self.spaceUsage = []
 
         # create new report title
-        # self.report(f"[INFO] Prime List: {self.integerList}\n")
-        self.report(f"[TEST] Preformance Test: {algorithm.__name__} \n")
+        self.report(f"[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.\n")
         x = 20 if self.digits < 20 else self.digits + 3
         self.report("\t%-*s%-*s%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 20, "[Elapsed Time]", 20, "[Memory Usage]", 20, "[Int Memory Usage]", 20, "[Factors]"))
 
-        for line in self.integerList:
+        for line in self.primeList:
             # report
             self.report(f"\t")
             self.report(f"{line:<{x}}")
@@ -92,20 +100,32 @@ class Driver(Num_Utils):
         self.report(f"\n[INFO] Total space usage: {total}")
         average = total / len(self.spaceUsage)
         self.report(f"\n[INFO] Average space usage: {average}")
-        self.report("\n[INFO] Testing Complete.\n")
+
+    def testFromFile(self, algorithm):
+        for datasections in DATAFILESECTIONS:
+            output = list(self.datafile.items(datasections))
+            if (output == []):
+                self.report("\n[INFO] Hit Empty List... Skipping.")
+                continue
+            self.primeList = json.loads(output[0][1])
+            self.primeList = map(int, self.primeList)
+            self.test(algorithm,datasections)
 
 # main
 if __name__ == "__main__":
+    #output = list(config.items('8_bits'))
+    #digits_list  = json.loads(output[0][1])
+    #print(digits_list[0])
+    
     # setup class
     _driver = Driver("results.txt")
-    
-    # test pollard's rho
-    _driver.report(f"\n%s\n" % ('-'*120))
-    _driver.generateTestData(26,3)
-    _driver.test(factor_utils.findAllPollard)
+    _driver.testFromFile(factor_utils.findAllPollard)
+    _driver.report("\n[INFO] Testing Complete.")
+    #_driver.generateTestData(26,3)
+    #_driver.test(factor_utils.findAllPollard)
     
     # test trail division (same data)
-    _driver.report(f"\n%s\n" % ('-'*120))
-    _driver.createNewFile()
-    _driver.test(factor_utils.trialDivision)
-    _driver.report(f"\n%s\n" % ('-'*120))
+    #_driver.report(f"\n%s\n" % ('-'*120))
+    #_driver.createNewFile()
+    #_driver.test(factor_utils.trialDivision)
+    #_driver.report(f"\n%s\n" % ('-'*120))
