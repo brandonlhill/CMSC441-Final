@@ -12,7 +12,7 @@ from memory_profiler import profile
 
 # globals
 DATAFILE = "RSA-Digits.dat"
-DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits", "65-bits", "70-bits", "75-bits", "80-bits", "85-bits", "90-bits", "95-bits", "100-bits"]
+DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits", "70-bits", "75-bits", "80-bits", "85-bits", "90-bits", "95-bits", "100-bits"]
 
 class Num_Utils:
     def randomIntGen(self, numDigits):
@@ -48,7 +48,7 @@ class Driver(Num_Utils):
         self.digits = digits
 
     def report(self, msg):
-        self.resultsFile.write(msg)
+        #self.resultsFile.write(msg)
         print(msg, end="")
     
     def createNewFile(self, filename=""):
@@ -67,7 +67,11 @@ class Driver(Num_Utils):
         self.report(f"[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.\n")
         x = 20 if self.digits < 20 else self.digits + 3
         self.report("\t%-*s%-*s%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 20, "[Elapsed Time]", 20, "[Memory Usage]", 20, "[Int Memory Usage]", 20, "[Factors]"))
-
+        
+        # write to raw file
+        self.resultsFile.write(f"[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.\n")
+        self.resultsFile.write("[Integer to Factor]\t[Elapsed Time]\t[Memory Usage]\t[Int Memory Usage]\t[Factors]\n")
+        
         for line in self.primeList:
             # report
             self.report(f"\t")
@@ -93,7 +97,11 @@ class Driver(Num_Utils):
             self.report(f"{space_usage_num:<20}")
             
             # generate report for iteration
-            self.report("[" + ", ".join(str(i) for i in numberFactors) + "]\n")
+            factors = ", ".join(str(i) for i in numberFactors)
+            self.report("[" + factors + "]\n")
+
+            # write to raw file
+            self.resultsFile.write(f"{line}\t{elapsedTime}\t{space_usage_algo}\t{space_usage_num}\t{factors}\n")
 
         # report final stats
         total = sum(self.spaceUsage[0])
