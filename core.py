@@ -12,7 +12,7 @@ from memory_profiler import profile
 
 # globals
 DATAFILE = "RSA-Digits.dat"
-DATAFILESECTIONS = ["8_bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits"]
+DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits"]
 
 class Num_Utils:
     def randomIntGen(self, numDigits):
@@ -107,6 +107,7 @@ class Driver(Num_Utils):
             if (output == []):
                 self.report("\n[INFO] Hit Empty List... Skipping.")
                 continue
+            
             self.primeList = json.loads(output[0][1])
             self.primeList = map(int, self.primeList)
             self.test(algorithm,datasections)
