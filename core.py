@@ -57,13 +57,13 @@ class Driver(Num_Utils):
         # create new report title
         # self.report(f"[INFO] Prime List: {self.integerList}\n")
         self.report(f"[TEST] Preformance Test: {algorithm.__name__} \n")
-        x = 20 if self.digits < 20 else self.digits
+        x = 20 if self.digits < 20 else self.digits + 3
         self.report("\t%-*s%-*s%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 20, "[Elapsed Time]", 20, "[Memory Usage]", 20, "[Int Memory Usage]", 20, "[Factors]"))
 
         for line in self.integerList:
             # report
             self.report(f"\t")
-            self.report(f"{line:<20}")
+            self.report(f"{line:<{x}}")
             
             # start timer
             startTime = time.time()
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     
     # test pollard's rho
     _driver.report(f"\n%s\n" % ('-'*120))
-    _driver.generateTestData(10,3)
+    _driver.generateTestData(26,3)
     _driver.test(factor_utils.findAllPollard)
     
     # test trail division (same data)
