@@ -1,9 +1,9 @@
+from memory_profiler import memory_usage
 import random
 import math
 import sys
 import time
 import datetime
-import psutil
 import configparser
 import json
 
@@ -64,50 +64,51 @@ class Driver(Num_Utils):
         self.spaceUsage = []
 
         # create new report title
-        self.report(f"[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.\n")
-        x = 20 if self.digits < 20 else self.digits + 3
-        self.report("\t%-*s%-*s%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 20, "[Elapsed Time]", 20, "[Memory Usage]", 20, "[Int Memory Usage]", 20, "[Factors]"))
+        self.report(f"\n[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.")
+        x = 25 if self.digits < 20 else self.digits + 5
+        self.report("\n\t%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 30, "[Elapsed Time]", 20, "[Factors]"))
         
         # write to raw file
-        self.resultsFile.write(f"[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.\n")
-        self.resultsFile.write("[Integer to Factor]\t[Elapsed Time]\t[Memory Usage]\t[Int Memory Usage]\t[Factors]\n")
+        self.resultsFile.write(f"\n[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.")
+        self.resultsFile.write("\n[Integer to Factor]\t[Elapsed Time]\t[Factors]\n")
         
         for line in self.primeList:
-            # report
-            self.report(f"\t")
-            self.report(f"{line:<{x}}")
-            
             # start timer
-            startTime = time.time()
+            startTime = time.perf_counter()
             
-            # get prime factors
+            # get prime factors (mem_usage, retval)
             numberFactors = algorithm(line)
-           
+
             # end time - in micro-seconds
-            endTime = time.time()
+            endTime = time.perf_counter()
             elapsedTime = endTime - startTime
             elapsedTime = round(elapsedTime, 15)
-
-            # get space usage and size of processed number
-            space_usage_algo = sys.getsizeof(algorithm(line)) * 8
-            space_usage_num = sys.getsizeof(line) * 8
-            self.spaceUsage.append((space_usage_algo, space_usage_num))
-            self.report(f"{str(elapsedTime):<20}")
-            self.report(f"{space_usage_algo:<20}")
-            self.report(f"{space_usage_num:<20}")
             
             # generate report for iteration
             factors = ", ".join(str(i) for i in numberFactors)
+            
+            # write to console & file: prime, time, factors
+            self.report(f"\t")
+            self.report(f"{line:<{x}}")
+            self.report(f"{str(elapsedTime):<30}")
             self.report("[" + factors + "]\n")
-
-            # write to raw file
-            self.resultsFile.write(f"{line}\t{elapsedTime}\t{space_usage_algo}\t{space_usage_num}\t{factors}\n")
+            self.resultsFile.write(f"{line}\t{elapsedTime}\t{factors}\n")
 
         # report final stats
-        total = sum(self.spaceUsage[0])
-        self.report(f"\n[INFO] Total space usage: {total}")
-        average = total / len(self.spaceUsage)
-        self.report(f"\n[INFO] Average space usage: {average}")
+        self.report(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(algorithm)} bytes.")
+        self.report(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(line))} bytes.")
+        self.report(f"\n[INFO] Function runtime stack size: (size of an object in bytes): {self.getMemorySize(algorithm, self.primeList[0])} Mib.\n")
+        
+        # write code to stat file
+        self.resultsFile.write(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(algorithm)} bytes.")
+        self.resultsFile.write(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(line))} bytes.")
+        self.resultsFile.write(f"\n[INFO] Function runtime stack size: (size of an object in bytes): {self.getMemorySize(algorithm, self.primeList[0])} Mib.\n")
+    
+    def getMemorySize(self, algorithm, line):
+        #(memory, numberFactors) = memory_usage(proc=(algorithm, (line,), {}), retval=True)
+        temp = memory_usage(proc=(algorithm, (line,), {}))
+        # return average memory usage
+        return sum(temp) / len(temp)
 
     def testFromFile(self, algorithm):
         for datasections in DATAFILESECTIONS:
@@ -117,24 +118,13 @@ class Driver(Num_Utils):
                 continue
             
             self.primeList = json.loads(output[0][1])
-            self.primeList = map(int, self.primeList)
+            self.primeList = list(map(int, self.primeList))
             self.test(algorithm,datasections)
-
 # main
 if __name__ == "__main__":
-    #output = list(config.items('8_bits'))
-    #digits_list  = json.loads(output[0][1])
-    #print(digits_list[0])
-    
-    # setup class
-    _driver = Driver("results.txt")
-    _driver.testFromFile(factor_utils.findAllPollard)
-    _driver.report("\n[INFO] Testing Complete.")
-    #_driver.generateTestData(26,3)
-    #_driver.test(factor_utils.findAllPollard)
-    
-    # test trail division (same data)
-    #_driver.report(f"\n%s\n" % ('-'*120))
-    #_driver.createNewFile()
-    #_driver.test(factor_utils.trialDivision)
-    #_driver.report(f"\n%s\n" % ('-'*120))
+    try:
+        _driver = Driver("results.txt")
+        _driver.testFromFile(factor_utils.findAllPollard)
+        _driver.report("\n[INFO] Testing Complete.")
+    except KeyboardInterrupt as inst:
+        print("[INFO] Ctrl + C shutdown.")
