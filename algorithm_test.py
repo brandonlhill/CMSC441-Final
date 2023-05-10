@@ -6,7 +6,6 @@ import time
 import datetime
 import configparser
 import json
-
 import factor_utils
 from memory_profiler import profile
 
@@ -68,10 +67,6 @@ class Driver(Num_Utils):
         x = 25 if self.digits < 20 else self.digits + 5
         self.report("\n\t%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 30, "[Elapsed Time]", 20, "[Factors]"))
         
-        # write to raw file
-        self.resultsFile.write(f"\n[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.")
-        self.resultsFile.write("\n[Integer to Factor]\t[Elapsed Time]\t[Factors]\n")
-        
         for line in self.primeList:
             # start timer
             startTime = time.perf_counter()
@@ -95,15 +90,10 @@ class Driver(Num_Utils):
             self.resultsFile.write(f"{line}\t{elapsedTime}\t{factors}\n")
         
 
-        # report final stats
+        # report final stats to stdout
         self.report(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(self.primeList[0])} bytes.")
         self.report(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(self.primeList[0]))} bytes.")
         self.report(f"\n[INFO] Function runtime stack size: (size of an object in bytes): {self.getMemorySize(algorithm, self.primeList[0])} Mib.\n")
-        
-        # write code to stat file
-        self.resultsFile.write(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(self.primeList[0])} bytes.")
-        self.resultsFile.write(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(self.primeList[0]))} bytes.")
-        self.resultsFile.write(f"\n[INFO] Function runtime stack size: (size of an object in bytes): {self.getMemorySize(algorithm, self.primeList[0])} Mib.\n")
     
     def getMemorySize(self, algorithm, line):
         #(memory, numberFactors) = memory_usage(proc=(algorithm, (line,), {}), retval=True)
@@ -125,8 +115,12 @@ class Driver(Num_Utils):
 # main
 if __name__ == "__main__":
     try:
-        _driver = Driver("results_PR_MEM_2.txt")
+        _driver = Driver("results_td.txt")
         _driver.testFromFile(factor_utils.trialDivision)
+        _driver.report("\n[INFO] Testing Complete.")
+
+        _driver = Driver(f"results_pr.txt")
+        _driver.testFromFile(factor_utils.findAllPollard)
         _driver.report("\n[INFO] Testing Complete.")
     except KeyboardInterrupt as inst:
         print("[INFO] Ctrl + C shutdown.")
