@@ -3,11 +3,6 @@ import math
 import time
 from itertools import combinations
 
-
-# Reference: https://github.com/Amaterazu7/rsa-python/blob/master/rsa.py
-# Provided breakRSA() function
-
-
 def gcd(a, b):
     '''
     Euclid's algorithm for determining the greatest common divisor
@@ -21,6 +16,7 @@ def multiplicative_inverse(e, phi):
     '''
     Euclid's extended algorithm for finding the multiplicative inverse of two numbers
     '''
+
     d = 0
     x1 = 0
     x2 = 1
@@ -48,6 +44,7 @@ def is_prime(num):
     '''
     Tests to see if a number is prime.
     '''
+
     if num == 2:
         return True
     if num < 2 or num % 2 == 0:
@@ -143,7 +140,8 @@ def breakRSA(publicKey, encrypted_msg, message):
     startTime = time.perf_counter()
     primefactors = findAllPollard(publicKey[1])
 
-    # try every combination of prime factors in pairs of 2
+    # try every combination of prime factors in pairs of 2 (this is only useful for dictionary coprimes)
+    # note that if pollardRho happens to find the coprimes there will only ever be two coprimes because of the property of semiprimes
     primefactorCombinations = list(combinations(primefactors, 2))
     
     # attempt bruteforce on each combination
@@ -184,8 +182,8 @@ if __name__ == '__main__':
     encrypted_msg = encrypt(public, message)
 
     print("[INFO] Your encrypted message is: ", ''.join(map(lambda x: str(x), encrypted_msg)))
-    #print("[INFO] Decrypting message with private key ", private, " . . .")
-    #print("[INFO] Your message is: ", decrypt(private, encrypted_msg))
+    print("[INFO] Decrypting message with private key ", private, " . . .")
+    print("[INFO] Your message is: ", decrypt(private, encrypted_msg))
 
     print("_"*90)
     breakRSA(public, encrypted_msg, message)

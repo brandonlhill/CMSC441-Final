@@ -2,6 +2,7 @@
 ## Prime Factorization Algorithms Used for Testing: 
 Pollards Rho
 - Reference: https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm
+
 Trial Divison
 - Reference: https://en.wikipedia.org/wiki/Trial_division
 
@@ -30,9 +31,13 @@ Modify x1,x2,y1,y2 with the memory_grapher.py script to insert your own data (ge
 The brute force demo script implements base RSA encyption and is able to compute 8 to 92 bit semiprime computations relatively fast. 
 Note that prime factorization (pollards rho) is used to find the private key.
 
+### Information about the code:
+Pulled RSA key generation code from: https://github.com/Amaterazu7/rsa-python/blob/master/rsa.py
+We implemented the "bruteforce()" function and cleaned up the stdout messages.
+
 Demo output: 
 ```shell
-$ python3 
+$ python3 RSA_bruteforce.py
 [STDIN] Enter a prime number: 17
 [STDIN] Enter another prime number (Not one you entered above): 19
 [STDIN] Enter a message to encrypt with your public key: brandon
