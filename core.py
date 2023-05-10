@@ -12,7 +12,7 @@ from memory_profiler import profile
 
 # globals
 DATAFILE = "RSA-Digits.dat"
-DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits", "70-bits", "75-bits", "80-bits", "85-bits", "90-bits", "95-bits", "100-bits"]
+DATAFILESECTIONS = ["8-bits", "16-bits", "32-bits", "48-bits", "56-bits", "58-bits", "59-bits", "60-bits", "61-bits", "63-bits", "64-bits", "70-bits"]
 
 class Num_Utils:
     def randomIntGen(self, numDigits):
@@ -93,22 +93,24 @@ class Driver(Num_Utils):
             self.report(f"{str(elapsedTime):<30}")
             self.report("[" + factors + "]\n")
             self.resultsFile.write(f"{line}\t{elapsedTime}\t{factors}\n")
+        
 
         # report final stats
-        self.report(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(algorithm)} bytes.")
-        self.report(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(line))} bytes.")
+        self.report(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(self.primeList[0])} bytes.")
+        self.report(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(self.primeList[0]))} bytes.")
         self.report(f"\n[INFO] Function runtime stack size: (size of an object in bytes): {self.getMemorySize(algorithm, self.primeList[0])} Mib.\n")
         
         # write code to stat file
-        self.resultsFile.write(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(algorithm)} bytes.")
-        self.resultsFile.write(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(line))} bytes.")
+        self.resultsFile.write(f"\n[INFO] Prime number stack size (size of an object in bytes): {sys.getsizeof(self.primeList[0])} bytes.")
+        self.resultsFile.write(f"\n[INFO] Function stack size (size of an object in bytes): {sys.getsizeof(algorithm(self.primeList[0]))} bytes.")
         self.resultsFile.write(f"\n[INFO] Function runtime stack size: (size of an object in bytes): {self.getMemorySize(algorithm, self.primeList[0])} Mib.\n")
     
     def getMemorySize(self, algorithm, line):
         #(memory, numberFactors) = memory_usage(proc=(algorithm, (line,), {}), retval=True)
         temp = memory_usage(proc=(algorithm, (line,), {}))
         # return average memory usage
-        return sum(temp) / len(temp)
+        return temp
+        #return sum(temp) / len(temp)
 
     def testFromFile(self, algorithm):
         for datasections in DATAFILESECTIONS:
@@ -123,8 +125,8 @@ class Driver(Num_Utils):
 # main
 if __name__ == "__main__":
     try:
-        _driver = Driver("results.txt")
-        _driver.testFromFile(factor_utils.findAllPollard)
+        _driver = Driver("results_PR_MEM_2.txt")
+        _driver.testFromFile(factor_utils.trialDivision)
         _driver.report("\n[INFO] Testing Complete.")
     except KeyboardInterrupt as inst:
         print("[INFO] Ctrl + C shutdown.")

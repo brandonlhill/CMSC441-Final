@@ -1,0 +1,90 @@
+
+[TEST] Preformance Test: findAllPollard with 8-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.94921875 Mib.
+
+[TEST] Preformance Test: findAllPollard with 16-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.9609375 Mib.
+
+[TEST] Preformance Test: findAllPollard with 32-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.96875 Mib.
+
+[TEST] Preformance Test: findAllPollard with 48-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.97265625 Mib.
+
+[TEST] Preformance Test: findAllPollard with 56-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.984375 Mib.
+
+[TEST] Preformance Test: findAllPollard with 58-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.98828125 Mib.
+
+[TEST] Preformance Test: findAllPollard with 59-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.99609375 Mib.
+
+[TEST] Preformance Test: findAllPollard with 60-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.0 Mib.
+
+[TEST] Preformance Test: findAllPollard with 61-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.0 Mib.
+
+[TEST] Preformance Test: findAllPollard with 63-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.0 Mib.
+
+[TEST] Preformance Test: findAllPollard with 64-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.0078125 Mib.
+
+[TEST] Preformance Test: findAllPollard with 70-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.01171875 Mib.
+
+[TEST] Preformance Test: findAllPollard with 75-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.01173 Mib.
+
+[TEST] Preformance Test: findAllPollard with 80-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.015625 Mib.
+
+[TEST] Preformance Test: findAllPollard with 85-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 19.01953125 Mib.
+
+[TEST] Preformance Test: findAllPollard with 90-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 15.06994584837545 Mib.
+
+[TEST] Preformance Test: findAllPollard with 95-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 6.656710949319213 Mib.
+
+[TEST] Preformance Test: findAllPollard with 100-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 120 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 7.109166787369641 Mib.

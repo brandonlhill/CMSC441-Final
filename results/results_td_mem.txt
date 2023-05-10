@@ -1,0 +1,42 @@
+
+[TEST] Preformance Test: trialDivision with 8-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.84765625 Mib.
+
+[TEST] Preformance Test: trialDivision with 16-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 18.86328125 Mib.
+
+[TEST] Preformance Test: trialDivision with 32-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 17.50859375 Mib.
+
+[TEST] Preformance Test: trialDivision with 48-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 6.856640625 Mib.
+
+[TEST] Preformance Test: trialDivision with 56-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 6.529585311181434 Mib.
+
+[TEST] Preformance Test: trialDivision with 58-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 5.50884271978022 Mib.
+
+[TEST] Preformance Test: trialDivision with 59-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 6.694598361784141 Mib.
+
+[TEST] Preformance Test: trialDivision with 60-bits primes.
+[INFO] Prime number stack size (size of an object in bytes): 152 bytes.
+[INFO] Function stack size (size of an object in bytes): 88 bytes.
+[INFO] Function runtime stack size: (size of an object in bytes): 6.517194976076555 Mib.
+
+[TEST] Preformance Test: trialDivision with 61-bits primes.
