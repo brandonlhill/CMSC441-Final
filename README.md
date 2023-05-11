@@ -57,3 +57,9 @@ ________________________________________________________________________________
 	- Private Key Pair: (193, 323)
 	- Decrypted Message: brandon
 ```
+
+## Authors
+
+- [@brandonlhill](https://www.github.com/brandonlhill)
+- [@dylan-hilderbrand](https://www.github.com/dylan-hilderbrand)
+- [@nathanieljwise](https://www.github.com/nathanieljwise)
