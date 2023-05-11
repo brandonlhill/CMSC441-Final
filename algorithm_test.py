@@ -63,7 +63,7 @@ class Driver(Num_Utils):
         self.spaceUsage = []
 
         # create new report title
-        self.report(f"\n[TEST] Preformance Test: {algorithm.__name__} with {bits} primes.")
+        self.report(f"\n[TEST] Performance Test: {algorithm.__name__} with {bits} primes.")
         x = 25 if self.digits < 20 else self.digits + 5
         self.report("\n\t%-*s%-*s%-*s\n" % (x,"[Integer to Factor]", 30, "[Elapsed Time]", 20, "[Factors]"))
         
